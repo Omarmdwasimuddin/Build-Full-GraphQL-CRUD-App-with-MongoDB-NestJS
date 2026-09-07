@@ -110,6 +110,55 @@ export const BookSchema = SchemaFactory.createForClass(Book);
 ---
 
 
+#### `book.module.ts`
+```bash
+import { Module } from '@nestjs/common';
+import { BookService } from './book.service';
+import { BookResolver } from './resolvers/book.resolver';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Book, BookSchema } from './model/book.model';
+
+@Module({
+  imports: [MongooseModule.forFeature([{ name: Book.name, schema: BookSchema }])],
+  providers: [BookService, BookResolver]
+})
+export class BookModule {}
+```
+---
+
+
+#### `create-book.input.ts`
+```bash
+import { InputType, Field } from "@nestjs/graphql";
+import { IsNotEmpty, IsString } from "class-validator";
+
+@InputType()
+export class CreateBookInput {
+    @Field()
+    @IsString()
+    @IsNotEmpty()
+    title: string;
+
+    @Field({ nullable: true })
+    @IsString()
+    description?: string;
+
+    @Field()
+    @IsString()
+    @IsNotEmpty()
+    author: string;
+}
+```
+---
+
+
+#### ``
+```bash
+
+```
+---
+
+
 #### ``
 ```bash
 
