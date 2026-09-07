@@ -115,7 +115,7 @@ export class CreateBookInput {
     @Field()
     @IsString()
     @IsNotEmpty()
-    title: string;
+    title!: string;
 
     @Field({ nullable: true })
     @IsString()
@@ -124,7 +124,7 @@ export class CreateBookInput {
     @Field()
     @IsString()
     @IsNotEmpty()
-    author: string;
+    author!: string;
 }
 ```
 ---
