@@ -3,7 +3,7 @@
 
 #### Install
 ```bash
-npm i @nestjs/graphql @nestjs/apollo @apollo/server @as-integrations/express5 class-transformer class-validator graphql
+npm i @nestjs/graphql@^13 @nestjs/apollo@^13 @apollo/server@^5 @as-integrations/express5 class-transformer class-validator graphql
 ```
 ---
 
