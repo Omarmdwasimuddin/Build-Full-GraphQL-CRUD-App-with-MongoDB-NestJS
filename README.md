@@ -67,11 +67,11 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 @ObjectType()
 export class Book {
     @Field(() => ID)
-    _id: string;
+    _id!: string;
 
     @Prop({ required: true })
     @Field()
-    title: string;
+    title!: string;
 
     @Prop()
     @Field({ nullable: true })
@@ -79,7 +79,7 @@ export class Book {
 
     @Prop({ required: true })
     @Field()
-    author: string;
+    author!: string;
 }
 
 export type BookDocument = HydratedDocument<Book>;
