@@ -168,8 +168,149 @@ export class UpdateBookInput extends PartialType(CreateBookInput) {
 ---
 
 
-#### ``
+#### `book.service.ts`
 ```bash
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Book } from './model/book.model';
+import { Model } from 'mongoose';
+import { CreateBookInput } from './dto/create-book.input';
+import { UpdateBookInput } from './dto/update-book.input';
 
+
+@Injectable()
+export class BookService {
+    constructor(
+        @InjectModel(Book.name) private bookModel: Model<Book>
+    ) {}
+
+    async create(input: CreateBookInput): Promise<Book> {
+        const created = new this.bookModel(input);
+        return created.save();
+    }
+
+    async findAll(): Promise<Book[]> {
+        return this.bookModel.find().exec();
+    }
+
+    async findOne(id: string): Promise<Book> {
+        const book = await this.bookModel.findById(id).exec();
+        if (!book) throw new NotFoundException('Book not found!')
+        return book;
+    }
+
+    async update(input: UpdateBookInput): Promise<Book> {
+        const existingBook = await this.bookModel.findById(input.id);
+        if (!existingBook) throw new NotFoundException('Book not found!');
+
+        Object.assign(existingBook, input);
+        return existingBook.save();
+    }
+
+    async delete(id: string): Promise<boolean> {
+        const deletedBook = await this.bookModel.findByIdAndDelete(id);
+        if (!deletedBook) throw new NotFoundException('Book not found!');
+        return true;
+    }
+}
 ```
+---
+
+
+#### `book.resolver.ts`
+```bash
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { BookService } from '../book.service';
+import { Book } from '../model/book.model';
+import { CreateBookInput } from '../dto/create-book.input';
+import { UpdateBookInput } from '../dto/update-book.input';
+
+@Resolver(() => Book)
+export class BookResolver {
+    constructor(
+        private readonly bookService: BookService
+    ) {}
+
+    @Query(() => [Book], { name: "getAllBooks" })
+    async findAll() {
+        return this.bookService.findAll();
+    }
+
+    @Query(() => Book, { name: "getBook" })
+    async findOne(@Args('id', { type: () => String }) id: string) {
+        return this.bookService.findOne(id);
+    }
+
+    @Mutation(() => Book)
+    async create(@Args('input') input: CreateBookInput) {
+        return this.bookService.create(input);
+    }
+
+    @Mutation(() => Book)
+    async update(@Args('input') input: UpdateBookInput) {
+        return this.bookService.update(input);
+    }
+
+    @Mutation(() => Boolean)
+    async delete(@Args('id', { type: () => String }) id: string) {
+        return this.bookService.delete(id);
+    }
+}
+```
+---
+
+
+#### visite localhost:3000/graphql
+```bash
+# localhost:3000/graphql
+# mutation {
+#  create(input: {
+#    title: "Backend Framework",
+#     description: "Nestja is joss...working!!",
+#     author: "Wasim"
+#   }){
+#    _id,
+#   title,
+#  author
+#   }
+# }
+
+# query {
+#   getAllBooks {
+#     _id,
+#     title,
+#     author
+#   }
+# }
+
+# query {
+#   getBook(id:"69992a9ac9fd36d1be436714" ) {
+#     _id,
+#     title,
+#     author
+#   }
+# }
+
+# mutation {
+#   delete (id: "6999307ac9fd36d1be43671e")
+# }
+
+
+mutation {
+  update(input:{
+    id:"69992a5ec9fd36d1be436712",
+    title: "GraphQL is awesome!",
+    description:"joss!",
+    author:"Wasim Uddin"
+  }){
+    _id,
+    title,
+    author
+  }
+}
+```
+---
+
+>## OUTPUT
+><img width="1599" height="811" alt="image" src="https://github.com/user-attachments/assets/4ccb28e9-4988-4142-bfc2-9c3ba74f5f8a" />
 ---
