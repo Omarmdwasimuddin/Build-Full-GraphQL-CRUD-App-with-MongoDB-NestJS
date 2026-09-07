@@ -8,7 +8,7 @@ npm i @nestjs/graphql @nestjs/apollo @apollo/server @as-integrations/express5 cl
 ---
 
 
-#### 
+#### Create module, service & resolver
 ```bash
 nest g module book
 ```
