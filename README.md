@@ -140,7 +140,7 @@ import { IsNotEmpty } from "class-validator";
 export class UpdateBookInput extends PartialType(CreateBookInput) {
     @Field(() => ID)
     @IsNotEmpty()
-    id: string;
+    id!: string;
 }
 ```
 ---
