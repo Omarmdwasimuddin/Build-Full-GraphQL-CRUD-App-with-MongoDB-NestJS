@@ -253,16 +253,18 @@ mutation{
   }
 }
 ```
+
 ```bash
+query{
+  getAllBooks{
+    _id,
+    title,
+    author
+  }
+}
+```
 
-
-# query {
-#   getAllBooks {
-#     _id,
-#     title,
-#     author
-#   }
-# }
+```bash
 
 # query {
 #   getBook(id:"69992a9ac9fd36d1be436714" ) {
