@@ -238,20 +238,23 @@ export class BookResolver {
 ---
 
 
-#### visite localhost:3000/graphql
+#### visite `localhost:3000/graphql`
 ```bash
-# localhost:3000/graphql
-# mutation {
-#  create(input: {
-#    title: "Backend Framework",
-#     description: "Nestja is joss...working!!",
-#     author: "Wasim"
-#   }){
-#    _id,
-#   title,
-#  author
-#   }
-# }
+mutation{
+  create(input:{
+    title: "NestJS is awesome!",
+    description: "This is awesome framework for backend developing....",
+    author: "Md Wasim Uddin"
+  }){
+    _id,
+    title,
+    description,
+    author
+  }
+}
+```
+```bash
+
 
 # query {
 #   getAllBooks {
