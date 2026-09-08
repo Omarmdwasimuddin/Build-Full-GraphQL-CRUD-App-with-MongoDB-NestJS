@@ -275,7 +275,18 @@ query{
 ```
 
 ```bash
-
+mutation{
+  update(input:{
+    id:"6a9f92b35daf41f4cb80e19f",
+    title: "GraphQL is awesome!",
+    description:"joss!",
+    author:"Wasim Uddin"
+  }){
+    _id,
+    title,
+    author
+  }
+}
 ```
 
 ```bash
