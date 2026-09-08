@@ -290,27 +290,58 @@ mutation{
 ```
 
 ```bash
-
+mutation{
+  remove(id:"6a9f92b35daf41f4cb80e19f")
+}
 ```
-
+>#### All Code
 ```bash
+# mutation{
+#   create(input:{
+#     title: "NestJS is awesome!",
+#     description: "This is awesome framework for backend developing....",
+#     author: "Md Wasim Uddin"
+#   }){
+#     _id,
+#     title,
+#     description,
+#     author
+#   }
+# }
 
-# mutation {
-#   delete (id: "6999307ac9fd36d1be43671e")
+# query{
+#   getAllBooks{
+#     _id,
+#     title,
+#     author
+#   }
+# }
+
+# query{
+#   getBook(id:"6a9f92b35daf41f4cb80e19f"){
+#     _id,
+#     title,
+#     author
+#   }
 # }
 
 
-mutation {
-  update(input:{
-    id:"69992a5ec9fd36d1be436712",
-    title: "GraphQL is awesome!",
-    description:"joss!",
-    author:"Wasim Uddin"
-  }){
-    _id,
-    title,
-    author
-  }
+# mutation{
+#   update(input:{
+#     id:"6a9f92b35daf41f4cb80e19f",
+#     title: "GraphQL is awesome!",
+#     description:"joss!",
+#     author:"Wasim Uddin"
+#   }){
+#     _id,
+#     title,
+#     author
+#   }
+# }
+
+
+mutation{
+  remove(id:"6a9f92b35daf41f4cb80e19f")
 }
 ```
 ---
