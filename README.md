@@ -185,9 +185,9 @@ export class BookService {
         return existingBook.save();
     }
 
-    async delete(id: string): Promise<boolean> {
-        const deletedBook = await this.bookModel.findByIdAndDelete(id);
-        if (!deletedBook) throw new NotFoundException('Book not found!');
+    async remove(id: string): Promise<boolean> {
+        const removedBook = await this.bookModel.findByIdAndDelete(id);
+        if (!removedBook) throw new NotFoundException('Book not found!');
         return true;
     }
 }
@@ -230,8 +230,8 @@ export class BookResolver {
     }
 
     @Mutation(() => Boolean)
-    async delete(@Args('id', { type: () => String }) id: string) {
-        return this.bookService.delete(id);
+    async remove(@Args('id', { type: () => String }) id: string) {
+        return this.bookService.remove(id);
     }
 }
 ```
