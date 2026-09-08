@@ -265,14 +265,24 @@ query{
 ```
 
 ```bash
+query{
+  getBook(id:"6a9f92b35daf41f4cb80e19f"){
+    _id,
+    title,
+    author
+  }
+}
+```
 
-# query {
-#   getBook(id:"69992a9ac9fd36d1be436714" ) {
-#     _id,
-#     title,
-#     author
-#   }
-# }
+```bash
+
+```
+
+```bash
+
+```
+
+```bash
 
 # mutation {
 #   delete (id: "6999307ac9fd36d1be43671e")
